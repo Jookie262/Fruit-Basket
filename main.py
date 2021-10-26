@@ -23,6 +23,9 @@ class FruitBasket:
         # Background Image
         self.background = pygame.image.load("assets/background.jpg")
 
+        # Image for the Info Section
+        self.info_background = pygame.image.load("assets/infoscreen.jpg")
+
         # Link all the Sound
         self.background_channel = pygame.mixer.Channel(0) # Background Music
         self.eat_channel = pygame.mixer.Channel(1) # Eating Fruits Sound Effect
@@ -416,6 +419,9 @@ class FruitBasket:
         
         # Loop each events
         while True:
+
+            # Get the Mouse Position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Get all the events
             for event in pygame.event.get():
@@ -424,8 +430,24 @@ class FruitBasket:
                 if event.type == pygame.QUIT:
                     quit() # Exit the game
 
-        # Update the Screen 
-        pygame.display.update()
+                # If the user presses or releases a mouse button
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    # If the user click the Main Menu Button
+                    if self.menu_rect.collidepoint(mouse_x, mouse_y):
+
+                         # Change the Scene back to Main Menu
+                        return self.scene_menu
+
+            # Set the Background
+            self.screen.blit(self.info_background,(0,0))
+
+            # Set Location and Show the Main Menu Button
+            self.menu_rect.center = 800 // 2, 540
+            self.screen.blit(self.menu,self.menu_rect)
+
+            # Update the Screen 
+            pygame.display.update()
 
     # =========================================================================== #
 
