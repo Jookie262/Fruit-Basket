@@ -1,6 +1,6 @@
-<h2 align="center">
+<h3 align="center">
     <img src = "assets/logo.png" width="350">
-</h2>
+</h3>
 
 <p align="center">
 	<b> A Hands-on Activity in Data Structure that Implements the Stack Data Structure. I design this activity to look like a game, so enjoy the game while eating any fruits </b>
