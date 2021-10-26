@@ -121,6 +121,12 @@ class FruitBasket:
         # Number Indicator of Pick Fruits (Pick Section)
         self.num_fruits = self.font.render('Maximum of 8 Fruits only: 8', False, (0, 0, 0))
 
+        # Max Number of fruits to Pick 
+        self.max_fruit = 8
+        
+        # Array for Storing the Fruits Pick
+        self.fruit_stack = []
+
         # Change of Scene in Screen
         self.scene_menu = 0             # For Main Menu Section
         self.scene_pick = 1             # For Pick Section
@@ -198,6 +204,9 @@ class FruitBasket:
         
         # Loop each events
         while True:
+
+            # Get the Mouse Position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Get all the events
             for event in pygame.event.get():
@@ -206,8 +215,71 @@ class FruitBasket:
                 if event.type == pygame.QUIT:
                     quit() # Exit the game
 
-        # Update the Screen 
-        pygame.display.update()
+                # If the user presses or releases a mouse button
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    # Proceed to Eat Section when Selected a Minimum of 1 Fruit
+                    if self.max_fruit <= 7:
+                         if self.proceed_rect.collidepoint(mouse_x, mouse_y):
+                            return self.scene_eat
+                    
+                    # Can only accepts with a max of 8 fruits
+                    if self.max_fruit > 0:
+
+                        # If the user click the image of apple
+                        if self.apple_rect.collidepoint(mouse_x, mouse_y):
+                            self.insertShowPick("Apple") # Call the Method InsertShowPick
+
+                         # If the user click the image of Guava 
+                        elif self.guava_rect.collidepoint(mouse_x, mouse_y):
+                            self.insertShowPick("Guava") # Call the Method InsertShowPick
+
+                         # If the user click the image of Mango
+                        elif self.mango_rect.collidepoint(mouse_x, mouse_y):
+                            self.insertShowPick("Mango") # Call the Method InsertShowPick
+
+                         # If the user click the image of Orange
+                        elif self.orange_rect.collidepoint(mouse_x, mouse_y):
+                            self.insertShowPick("Orange") # Call the Method InsertShowPick
+
+                    else:
+                        # Prints this statement when exceed the num of fruits pick
+                        self.pick = self.font.render('Exceed Num of Fruits', False, (0, 0, 0))
+
+            # Set the Background
+            self.screen.blit(self.background,(0,0))
+
+            # Show the Choose Fruits Image Text
+            self.screen.blit(self.choose_fruit, self.choose_fruit_rect)
+
+            # Set the Location and Show Apple Image
+            self.apple_rect.center = 350 // 2 , 600 // 2
+            self.screen.blit(self.apple, self.apple_rect)
+
+            # Set the Location and Show Guava Image
+            self.guava_rect.center = 650 // 2, 600 // 2
+            self.screen.blit(self.guava, self.guava_rect)
+
+            # Set the Location and Show Mango Image
+            self.mango_rect.center = 950 // 2, 600 // 2
+            self.screen.blit(self.mango, self.mango_rect)
+
+            # Set the Location and Show Orange Image
+            self.orange_rect.center = 1250 // 2, 600 // 2
+            self.screen.blit(self.orange, self.orange_rect)
+
+            # Set the Location and Show the Dynamic Pick Fruits Text
+            self.screen.blit(self.pick, (580 // 2, 400))
+
+            # Set the Location and Show the Number of Fruits you Pick
+            self.screen.blit(self.num_fruits, (510 // 2, 440))
+
+            # Show the Proceed button if you pick a minimum of 1 fruit 
+            if self.max_fruit <= 7:
+                self.screen.blit(self.proceed, self.proceed_rect)
+
+            # Update the Screen 
+            pygame.display.update()
 
     # =========================================================================== #
 
@@ -263,6 +335,25 @@ class FruitBasket:
         # Update the Screen 
         pygame.display.update()
 
+    # =========================================================================== #
+
+    # Method to used in the Pick Section since there is a repetitive in the statements
+    # This append the fruit to the list and display the text dynamically in the Pick Section
+    def insertShowPick(self, fruit):
+
+        # Append to the List
+        self.fruit_stack.append(fruit)
+
+        # Display the Fruit Pick
+        self.pick = self.font.render('You Choose: ' + fruit, False, (0, 0, 0)) 
+
+        # Minus the max_fruit variable Everytime the fruit is pick
+        self.max_fruit -= 1 
+
+        # Display the number of fruits you pick decrementally
+        self.num_fruits = self.font.render('Maximum of 8 Fruits only: ' + str(self.max_fruit), False, (0, 0, 0)) 
+
+    # =========================================================================== #
 
 # Call the Class
 FruitBasket()
