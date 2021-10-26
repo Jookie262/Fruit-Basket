@@ -113,7 +113,7 @@ class FruitBasket:
         self.font = pygame.font.SysFont('Arial Bold', 30)
 
         # Want to Eat Again (Last Section)
-        self.again = self.font.render('Want to Eat Again?', False, (0, 0, 0))
+        self.again_text = self.font.render('Want to Eat Again?', False, (0, 0, 0))
 
         # Pick Fruits you want (Pick Section)
         self.pick = self.font.render('Pick Fruits you want', False, (0, 0, 0))
@@ -171,6 +171,10 @@ class FruitBasket:
                     
                     # If the user click any of those buttons
                     if self.play_rec.collidepoint(mouse_x, mouse_y):    # Play button
+                        
+                        # Call the method setShowDefault()
+                        self.setShowDefault()
+
                         return self.scene_pick # Change the self.scene value to 1
 
                     elif self.info_rec.collidepoint(mouse_x, mouse_y):  # Info Button
@@ -357,6 +361,9 @@ class FruitBasket:
         
         # Loop each events
         while True:
+
+            # Get the Mouse Position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Get all the events
             for event in pygame.event.get():
@@ -365,8 +372,42 @@ class FruitBasket:
                 if event.type == pygame.QUIT:
                     quit() # Exit the game
 
-        # Update the Screen 
-        pygame.display.update()
+                # If the user presses or releases a mouse button
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    # If the user click the Play Again Button
+                    if self.again_rect.collidepoint(mouse_x, mouse_y):
+
+                        # Call the method setShowDefault()
+                        self.setShowDefault()
+
+                        # Change the Scene Back to Pick Section
+                        return self.scene_pick
+                    
+                     # If the user click the Main Menu Button
+                    elif self.menu_rect.collidepoint(mouse_x, mouse_y):
+
+                        # Change the Scene back to Main Menu
+                        return self.scene_menu
+
+            # Set the Background
+            self.screen.blit(self.background,(0,0))
+
+            # Show No More Fruits Image Text
+            self.screen.blit(self.no_fruits,self.no_fruits_rect)
+
+            # Show the Eat Again Text
+            self.screen.blit(self.again_text, (310, 300))
+
+            # Show Play Again Button
+            self.screen.blit(self.again, self.again_rect)
+
+            # Set Location and Show the Main Menu Button
+            self.menu_rect.center = 800 // 2, 440
+            self.screen.blit(self.menu,self.menu_rect)
+
+            # Update the Screen 
+            pygame.display.update()
 
     # =========================================================================== #
 
@@ -421,6 +462,24 @@ class FruitBasket:
 
         # Display the fruit
         self.screen.blit(fruit, fruit_rec)
+
+    # =========================================================================== #
+
+    # Method to used in the Last and Pick Section since there is a repetitive in the statements
+    # This method set everything from default
+    def setShowDefault(self):
+
+        # Set the list to Empty
+        self.fruit_stack = []
+
+        # Set the max_fruit to original
+        self.max_fruit = 8
+
+        # Set the pick variable to orginal text
+        self.pick = self.font.render('Pick Fruits you want', False, (0, 0, 0))
+
+        # Set the num_fruits variable to orginal text
+        self.num_fruits = self.font.render('Maximum of 8 Fruits only: 8', False, (0, 0, 0))
 
     # =========================================================================== #
 
