@@ -143,7 +143,7 @@ class FruitBasket:
                 self.scene = self.pickGame()
             elif self.scene == self.scene_eat:
                 self.scene = self.eatGame()
-            elif self.scene == self.scene_congrats:
+            elif self.scene == self.scene_last:
                 self.scene = self.lastGame()
             elif self.scene == self.scene_info:
                 self.scene = self.menuInfo()
@@ -288,6 +288,12 @@ class FruitBasket:
         
         # Loop each events
         while True:
+
+            # Set the Background
+            self.screen.blit(self.background,(0,0))
+
+            # Get the Mouse Position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Get all the events
             for event in pygame.event.get():
@@ -296,8 +302,53 @@ class FruitBasket:
                 if event.type == pygame.QUIT:
                     quit() # Exit the game
 
-        # Update the Screen 
-        pygame.display.update()
+                # If the user presses or releases a mouse button
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    # If the user click the Eat Button
+                    if self.eat_rect.collidepoint(mouse_x, mouse_y):
+
+                        # Last Element of fruit_stack will remove
+                        if self.fruit_stack.pop():
+                            
+                            # Apply the sound effect of Eating
+                            self.eat_channel.play(pygame.mixer.Sound("assets/eating.wav"), loops=0)
+
+                            # This code makes the fruit disappear by stacking a background
+                            self.screen.blit(self.background,(0,0))
+                        
+                        # If there is no element inside the fruit stack list
+                        if len(self.fruit_stack) == 0:
+
+                            # Apply the sound effect of Burp
+                            self.burp_channel.play(pygame.mixer.Sound("assets/burp.wav"), loops=0)
+
+                            # Change the Scene to Last Section 
+                            return self.scene_last
+
+            # Diplay all the elements inside the fruit_stack list
+            for index, fruit in enumerate(self.fruit_stack):
+
+                if fruit == "Apple":
+                    self.displayFruitEat(self.apple, self.apple_rect, index) # Call the Method displayFruitEat
+
+                elif fruit == "Guava":
+                    self.displayFruitEat(self.guava, self.guava_rect, index) # Call the Method displayFruitEat
+
+                elif fruit == "Mango":
+                    self.displayFruitEat(self.mango, self.mango_rect, index) # Call the Method displayFruitEat
+
+                elif fruit == "Orange":
+                    self.displayFruitEat(self.orange, self.orange_rect, index) # Call the Method displayFruitEat
+
+            # Show the Basket Text
+            self.screen.blit(self.basket_text, self.basket_text_rect)
+
+            # Show the Lets Eat Button
+            self.screen.blit(self.eat, self.eat_rect)
+
+            # Update the Screen 
+            pygame.display.update()
 
     # =========================================================================== #
 
@@ -352,6 +403,24 @@ class FruitBasket:
 
         # Display the number of fruits you pick decrementally
         self.num_fruits = self.font.render('Maximum of 8 Fruits only: ' + str(self.max_fruit), False, (0, 0, 0)) 
+
+    # =========================================================================== #
+
+    # Method to used in the Eat Section since there is a repetitive in the statements
+    # This displays the fruit in a 4 x 2 if the user pick a total of 8 fruits
+    def displayFruitEat(self, fruit, fruit_rec, index):
+
+        # If the index is 4 and above
+        if index > 3:
+            # Create a next line
+            fruit_rec.center = (320 * ((index + 1) - 4)) // 2 , 750 // 2
+
+        else:
+            # Standard Location
+            fruit_rec.center = (320 * (index + 1)) // 2 , 450 // 2
+
+        # Display the fruit
+        self.screen.blit(fruit, fruit_rec)
 
     # =========================================================================== #
 
