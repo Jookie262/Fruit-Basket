@@ -15,11 +15,11 @@ Download python3 in device then install pygame in pip terminal to run the main s
 
 ## Game Screenshot:
 <p float="left">
-	<img src = "screenshot/mainScreen.png" width="250">
-	<img src = "screenshot/infoSection.png" width="250">
-	<img src = "screenshot/pickSection.png" width="250">
-	<img src = "screenshot/eatSection.png" width="250">
-	<img src = "screenshot/lastSection.png" width="250">
+	<img src = "screenshot/mainScreen.png" width="260">
+	<img src = "screenshot/infoSection.png" width="260">
+	<img src = "screenshot/pickSection.png" width="260">
+	<img src = "screenshot/eatSection.png" width="260">
+	<img src = "screenshot/lastSection.png" width="260">
 </p>
 
 ## Instructions: 
