@@ -1,4 +1,4 @@
-#Import Pygame
+# Import Pygame
 import pygame
 
 # Created Class to implement OOP
@@ -10,7 +10,7 @@ class FruitBasket:
         # Initialize Pygame
         pygame.init()
 
-        # Setting Up the Screen
+        # Size of the Screen
         self.screen = pygame.display.set_mode((800, 600))
         
         # Title of the Screen 
@@ -120,6 +120,117 @@ class FruitBasket:
 
         # Number Indicator of Pick Fruits (Pick Section)
         self.num_fruits = self.font.render('Maximum of 8 Fruits only: 8', False, (0, 0, 0))
+
+        # Change of Scene in Screen
+        self.scene_menu = 0             # For Main Menu Section
+        self.scene_pick = 1             # For Pick Section
+        self.scene_eat = 2              # For Eat Section
+        self.scene_last = 3             # For Last Section
+        self.scene_info = 4             # For Info Section
+        self.scene = self.scene_menu    # Holds the Current Scene
+
+        # Loop each scene and look for any changes
+        while True:
+            if self.scene == self.scene_menu:
+                self.scene = self.mainMenu()
+            elif self.scene == self.scene_pick:
+                self.scene = self.pickGame()
+            elif self.scene == self.scene_eat:
+                self.scene = self.eatGame()
+            elif self.scene == self.scene_congrats:
+                self.scene = self.lastGame()
+            elif self.scene == self.scene_info:
+                self.scene = self.menuInfo()
+
+    # =========================================================================== #
+
+    # Method for the Main Menu Section
+    def mainMenu(self):
+        
+        # Loop each events
+        while True:
+            
+            # Get all the events
+            for event in pygame.event.get():
+
+                # If the user click the x button
+                if event.type == pygame.QUIT:
+                    quit() # Exit the game
+
+        # Update the Screen 
+        pygame.display.update()
+
+    # =========================================================================== #
+
+    # Method for the Pick Section
+    def pickGame(self):
+        
+        # Loop each events
+        while True:
+            
+            # Get all the events
+            for event in pygame.event.get():
+
+                # If the user click the x button
+                if event.type == pygame.QUIT:
+                    quit() # Exit the game
+
+        # Update the Screen 
+        pygame.display.update()
+
+    # =========================================================================== #
+
+    # Method for the Eat Section
+    def eatGame(self):
+        
+        # Loop each events
+        while True:
+            
+            # Get all the events
+            for event in pygame.event.get():
+
+                # If the user click the x button
+                if event.type == pygame.QUIT:
+                    quit() # Exit the game
+
+        # Update the Screen 
+        pygame.display.update()
+
+    # =========================================================================== #
+
+    # Method for the Last Section
+    def lastGame(self):
+        
+        # Loop each events
+        while True:
+            
+            # Get all the events
+            for event in pygame.event.get():
+
+                # If the user click the x button
+                if event.type == pygame.QUIT:
+                    quit() # Exit the game
+
+        # Update the Screen 
+        pygame.display.update()
+
+    # =========================================================================== #
+
+    # Method for the Info Section
+    def menuInfo(self):
+        
+        # Loop each events
+        while True:
+            
+            # Get all the events
+            for event in pygame.event.get():
+
+                # If the user click the x button
+                if event.type == pygame.QUIT:
+                    quit() # Exit the game
+
+        # Update the Screen 
+        pygame.display.update()
 
 
 # Call the Class
