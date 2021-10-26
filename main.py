@@ -149,16 +149,47 @@ class FruitBasket:
         
         # Loop each events
         while True:
+
+            # Get the Mouse Position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Get all the events
             for event in pygame.event.get():
 
                 # If the user click the x button
                 if event.type == pygame.QUIT:
-                    quit() # Exit the game
+                    quit() # Exits the game
 
-        # Update the Screen 
-        pygame.display.update()
+                # If the user presses or releases a mouse button
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    # If the user click any of those buttons
+                    if self.play_rec.collidepoint(mouse_x, mouse_y):    # Play button
+                        return self.scene_pick # Change the self.scene value to 1
+
+                    elif self.info_rec.collidepoint(mouse_x, mouse_y):  # Info Button
+                        return self.scene_info # Change the self.scene value to 4
+
+                    elif self.quit_rec.collidepoint(mouse_x, mouse_y):  # Quit Button
+                        quit() # Exits the game
+
+            # Set the Background
+            self.screen.blit(self.background,(0,0))
+
+            # Show the Logo
+            self.screen.blit(self.logo,self.logo_rec)
+
+            # Show the Play Button
+            self.screen.blit(self.play,self.play_rec)
+
+            # Show the Info Button
+            self.screen.blit(self.info,self.info_rec)
+
+            # Show the Quit Button
+            self.screen.blit(self.quit,self.quit_rec)
+    
+            # Update the Screen 
+            pygame.display.update()
 
     # =========================================================================== #
 
