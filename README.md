@@ -8,7 +8,7 @@
 
 
 ## Run the Main Script 📜
-Download python3 in device then install pygame in pip terminal to run the main script
+Download python3 in device then install pygame in terminal using the code below to run the main script
 
 ` pip install pygame `
 
